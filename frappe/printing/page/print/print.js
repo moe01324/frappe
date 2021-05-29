@@ -60,8 +60,9 @@ frappe.ui.form.PrintView = class {
 
 	setup_toolbar() {
 		this.page.set_primary_action(
-			__('Print'),
-			() => this.printit(), 'printer'
+			__('PDF'),
+			() => this.render_page('/api/method/frappe.utils.print_format.download_pdf?'),
+			{ icon: 'small-file' }
 		);
 
 		this.page.add_button(
@@ -70,11 +71,6 @@ frappe.ui.form.PrintView = class {
 			{ icon: 'full-page' }
 		);
 
-		this.page.add_button(
-			__('PDF'),
-			() => this.render_page('/api/method/frappe.utils.print_format.download_pdf?'),
-			{ icon: 'small-file' }
-		);
 
 		this.page.add_button(
 			frappe.utils.icon('refresh'),

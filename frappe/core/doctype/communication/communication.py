@@ -421,11 +421,14 @@ def get_email_without_link(email):
 	"""
 	if not frappe.get_all("Email Account", filters={"enable_automatic_linking": 1}):
 		return email
-
-	email_id = email.split("@")[0].split("+")[0]
-	email_host = email.split("@")[1]
-
-	return "{0}@{1}".format(email_id, email_host)
+	
+	if "@" in email:
+		email_id = email.split("@")[0].split("+")[0]
+		email_host = email.split("@")[1]
+		return "{0}@{1}".format(email_id, email_host)
+	else:
+		email_id = email.split("@")[0].split("+")[0]
+		return "{0}@{1}".format(email_id, "no_host")
 
 def update_parent_document_on_communication(doc):
 	"""Update mins_to_first_communication of parent document based on who is replying."""
